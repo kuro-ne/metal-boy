@@ -58,9 +58,9 @@ def run():
 
 
 if __name__ == '__main__':
-    n : int = os.getenv("NUM_LOOP", 1)
+    n: int = int(os.getenv("NUM_LOOP", 1))
 
-    for i in range(10000):
+    for i in range(n):
         print(f"Run {i + 1}")
         try:
             run()
