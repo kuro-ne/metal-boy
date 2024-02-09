@@ -72,5 +72,6 @@ if __name__ == '__main__':
     # exit
     print("Done")
     time.sleep(1)
-    exit(0)
+    import sys
+    sys.exit(5)
     
