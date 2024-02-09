@@ -1,4 +1,5 @@
 import datetime
+import os
 import sqlite3
 
 from pymongo.mongo_client import MongoClient
@@ -20,7 +21,10 @@ class DB:
         switcher.get(self.DB_TYPE)()
 
     def init_mongodb(self):
-        self.mongo_uri = 'mongodb+srv://xloader96:makankue22@cluster0.vzsqu0s.mongodb.net/?retryWrites=true&w=majority'
+        self.mongo_uri = os.getenv("MONGO_URI", None)
+        if not self.mongo_uri:
+            raise Exception('MONGO_URI is not set')
+
         self.mongo_client = MongoClient(self.mongo_uri)
         # Send a ping to confirm a successful connection
         try:

@@ -4,3 +4,5 @@ names~=0.3.0
 requests~=2.31.0
 beautifulsoup4
 pymongo[srv]
+python-dotenv
+playwright-stealth

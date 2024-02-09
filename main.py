@@ -1,4 +1,5 @@
 import datetime
+import os
 import sqlite3
 import time
 
@@ -7,6 +8,9 @@ import names
 from db import DB
 from email_temp import EmailTemp
 from w3gg import W3GGSignUp
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def run():
@@ -14,7 +18,7 @@ def run():
     temp_mail = EmailTemp()
     db = DB()
 
-    ref_code = "mariadevh"
+    ref_code = os.getenv("REFERRAL_CODE", "mariadevh")
 
     name = names.get_full_name()
     username = name.lower().replace(" ", "")
@@ -54,6 +58,8 @@ def run():
 
 
 if __name__ == '__main__':
+    n : int = os.getenv("NUM_LOOP", 1)
+
     for i in range(10000):
         print(f"Run {i + 1}")
         try:
