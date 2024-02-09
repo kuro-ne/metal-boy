@@ -68,3 +68,9 @@ if __name__ == '__main__':
             print(f"Error: {e}")
             time.sleep(5)
             continue
+
+    # exit
+    print("Done")
+    time.sleep(1)
+    exit(0)
+    
