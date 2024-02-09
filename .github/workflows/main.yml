@@ -27,6 +27,6 @@ jobs:
     - name: Run your tests
       env: 
         MONGO_URI: ${{ secrets.MONGO_URI }}
-        REFERRAL_CODE: ${{ env.REFERRAL_CODE }}
-        NUM_LOOP: ${{ env.NUM_LOOP }}
+        REFERRAL_CODE: ${{ secrets.REFERRAL_CODE }}
+        NUM_LOOP: ${{ secrets.NUM_LOOP }}
       run: python main.py
