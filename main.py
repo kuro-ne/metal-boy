@@ -71,7 +71,19 @@ if __name__ == '__main__':
 
     # exit
     print("Done")
-    time.sleep(1)
-    import sys
-    sys.exit(5)
-    
+
+    try:
+        time.sleep(1)
+        import sys
+
+        sys.exit(0)
+
+        sys.exit(9)
+
+    except SystemExit as e:
+        print("sys.exit() failed! {}".format(e))
+    finally:
+        print("sys.exit() finally!")
+
+    raise Exception("Done")
+
