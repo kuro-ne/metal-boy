@@ -23,13 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Ensure browsers are installed
-      run: python -m playwright install --with-deps
+      run: python -m playwright install chromium --with-deps
     - name: Run your tests
-      with:
-        MONGO_URI: ${{ secrets.MONGO_URI }}
-        REFERRAL_CODE: ${{ secrets.REFERRAL_CODE }}
-        NUM_LOOP: ${{ secrets.NUM_LOOP }}
-      env: # Or as an environment variable
+      env: 
         MONGO_URI: ${{ secrets.MONGO_URI }}
         REFERRAL_CODE: ${{ secrets.REFERRAL_CODE }}
         NUM_LOOP: ${{ secrets.NUM_LOOP }}
