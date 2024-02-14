@@ -110,6 +110,12 @@ class W3GGSignUp:
 
             time.sleep(5)
 
+            # close the browser
+            page.close()
+            context.close()
+            browser.close()
+
+
 
 def get_leaderboard(id: str):
     if not id:

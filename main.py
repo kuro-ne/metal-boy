@@ -1,6 +1,7 @@
 import datetime
 import os
 import sqlite3
+import sys
 import time
 
 import names
@@ -58,10 +59,16 @@ def run():
 
     db.insert(data)
 
+    try:
+        db.mongo_client.close()
+        print("closed mongo client")
+    except Exception as e:
+        print(f"Error close mongo client : {e}")
+
     print("Done")
 
 
-if __name__ == '__main__':
+def main():
     n: int = int(float(os.getenv("NUM_LOOP", "1")))
 
     for i in range(n):
@@ -76,18 +83,8 @@ if __name__ == '__main__':
     # exit
     print("Done")
 
-    try:
-        time.sleep(1)
-        import sys
+    sys.exit()
 
-        sys.exit(0)
 
-        sys.exit(9)
-
-    except SystemExit as e:
-        print("sys.exit() failed! {}".format(e))
-    finally:
-        print("sys.exit() finally!")
-
-    raise Exception("Done")
-
+if __name__ == '__main__':
+    main()
