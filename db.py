@@ -1,9 +1,13 @@
 import datetime
 import os
 import sqlite3
+from typing import Optional
 
 from pymongo.mongo_client import MongoClient
 
+from w3gg import get_leaderboard
+
+MAX_TARGET_WXP = int(float(os.getenv("MAX_TARGET_WXP", "7000")))
 
 class DB:
     def __init__(self):
@@ -92,3 +96,27 @@ class DB:
         '''
         self.cursor.execute(query, payload)
         self.sqlite_connection.commit()
+
+    def get_active_referral_code(self) -> Optional[str]:
+        # get data from "referral" collection
+        # filter "active" is True
+        # return "referral_code"
+        db = self.mongo_client['account']
+        collection = db['referral']
+        datas = collection.find({"active": True})
+
+        for data in datas:
+            id = data.get("id", None)
+            l = get_leaderboard(id)
+            wxp = 0
+            referral_code = None
+            if l:
+                wxp = l.get("wxp", 0)
+            if wxp < MAX_TARGET_WXP :
+                referral_code = data.get("referral_code", None)
+
+            if referral_code:
+                return referral_code
+
+        return None
+

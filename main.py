@@ -18,7 +18,11 @@ def run():
     temp_mail = EmailTemp()
     db = DB()
 
-    ref_code = os.getenv("REFERRAL_CODE", "mariadevh")
+    ref_code = db.get_active_referral_code()
+    if not ref_code:
+        print("No active referral code")
+        return
+    print("Referral Code: ", ref_code)
 
     name = names.get_full_name()
     username = name.lower().replace(" ", "")

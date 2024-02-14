@@ -1,5 +1,6 @@
 import time
 
+import requests
 from playwright.async_api import async_playwright
 from playwright.sync_api import sync_playwright
 
@@ -108,3 +109,25 @@ class W3GGSignUp:
             page.wait_for_timeout(5)
 
             time.sleep(5)
+
+
+def get_leaderboard(id: str):
+    if not id:
+        return None
+    url = "https://w3gg.io/api/v1/leaderboards"
+
+    querystring = {"offset": "0", "limit": "3", "filter": "user_id:eq:{}".format(id)}
+
+    payload = ""
+    headers = {"User-Agent": "insomnia/2023.5.8"}
+
+    response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
+    if response.status_code == 200:
+        j = response.json()
+        r = j.get("results", [])
+        if len(r) > 0:
+            return r[0]
+        else:
+            return None
+    else:
+        return None
